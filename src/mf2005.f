@@ -42,7 +42,8 @@ C
      &           'MNW2', 'MNWI', 'MNW1', 'KDEP', 'SUB ', 'UZF ', 'gwm ',  ! 56
      &           'SWT ', 'cfp ', 'PCGN', '    ', '    ', '    ', 'nrs ',  ! 63
      &           'SWR ', 'SWI2', '    ', '    ', '    ', '    ', '    ',  ! 70
-     &           30*'    '/
+     &           'RIP',                                                   ! 71
+     &            29*'    '/
 C     ------------------------------------------------------------------
 C
 C2------WRITE BANNER TO SCREEN AND DEFINE CONSTANTS.
@@ -87,6 +88,7 @@ C6------ALLOCATE AND READ (AR) PROCEDURE
       IF(IUNIT(3).GT.0) CALL GWF2DRN7AR(IUNIT(3),IGRID)
       IF(IUNIT(4).GT.0) CALL GWF2RIV7AR(IUNIT(4),IGRID)
       IF(IUNIT(5).GT.0) CALL GWF2EVT7AR(IUNIT(5),IGRID)
+      IF(IUNIT(71).GT.0) CALL GWF2RIP4AR(IUNIT(71),IGRID) !RIP-ET
       IF(IUNIT(7).GT.0) CALL GWF2GHB7AR(IUNIT(7),IGRID)
       IF(IUNIT(8).GT.0) CALL GWF2RCH7AR(IUNIT(8),IGRID)
       IF(IUNIT(16).GT.0) CALL GWF2FHB7AR(IUNIT(16),IGRID)
@@ -157,6 +159,7 @@ C----------READ USING PACKAGE READ AND PREPARE MODULES.
         IF(IUNIT(3).GT.0) CALL GWF2DRN7RP(IUNIT(3),IGRID)
         IF(IUNIT(4).GT.0) CALL GWF2RIV7RP(IUNIT(4),IGRID)
         IF(IUNIT(5).GT.0) CALL GWF2EVT7RP(IUNIT(5),IGRID)
+        IF(IUNIT(71).GT.0) CALL GWF2RIP4RP(IUNIT(71),IGRID)
         IF(IUNIT(7).GT.0) CALL GWF2GHB7RP(IUNIT(7),IGRID)
         IF(IUNIT(8).GT.0) CALL GWF2RCH7RP(IUNIT(8),IGRID)
         IF(IUNIT(17).GT.0) CALL GWF2RES7RP(IUNIT(17),IGRID)
@@ -257,6 +260,7 @@ C7C2A---FORMULATE THE FINITE DIFFERENCE EQUATIONS.
               IF(IUNIT(22).GT.0.AND.NEVTOP.EQ.3) CALL GWF2LAK7ST(
      1                                                    1,IGRID)
             END IF
+            IF(IUNIT(71).GT.0) CALL GWF2RIP4FM(IGRID) !RIP-ET
             IF(IUNIT(7).GT.0) CALL GWF2GHB7FM(IGRID)
             IF(IUNIT(8).GT.0) THEN
                IF(IUNIT(22).GT.0.AND.NRCHOP.EQ.3) CALL GWF2LAK7ST(
@@ -427,6 +431,7 @@ C
              IF(IUNIT(22).GT.0.AND.NEVTOP.EQ.3) CALL GWF2LAK7ST(
      1                                                     1,IGRID)
           END IF
+          IF(IUNIT(71).GT.0) CALL GWF2RIP4BD(KKSTP,KKPER,IGRID) !RIP-ET
           IF(IUNIT(7).GT.0) CALL GWF2GHB7BD(KKSTP,KKPER,IGRID)
           IF(IUNIT(8).GT.0) THEN
              IF(IUNIT(22).GT.0.AND.NRCHOP.EQ.3) CALL GWF2LAK7ST(
@@ -538,6 +543,7 @@ C9------LAST BECAUSE IT DEALLOCATES IUNIT.
       IF(IUNIT(3).GT.0) CALL GWF2DRN7DA(IGRID)
       IF(IUNIT(4).GT.0) CALL GWF2RIV7DA(IGRID)
       IF(IUNIT(5).GT.0) CALL GWF2EVT7DA(IGRID)
+      IF(IUNIT(71).GT.0) CALL GWF2RIP4DA(IGRID) !RIP-ET
       IF(IUNIT(7).GT.0) CALL GWF2GHB7DA(IGRID)
       IF(IUNIT(8).GT.0) CALL GWF2RCH7DA(IGRID)
       IF(IUNIT(9).GT.0) CALL SIP7DA(IGRID)
